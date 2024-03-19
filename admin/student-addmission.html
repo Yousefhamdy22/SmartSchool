@@ -69,7 +69,8 @@
       href="assets/css/color/color-1.css"
     />
   </head>
-  <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+   <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+    
     <!-- header start -->
     <header class="ttr-header">
       <div class="ttr-header-wrapper">
@@ -126,18 +127,13 @@
           </ul>
           <!-- header left menu end -->
         </div>
-   
+        
         <!--header search panel start -->
-
         <!--header search panel end -->
       </div>
-
-      
     </header>
-    <!-- header end -->
-
-    
-    <!-- Left sidebar menu start -->
+    <!-- header end --><div class="crud-section">
+      <!-- Left sidebar menu start -->
     <div class="ttr-sidebar">
       <div class="ttr-sidebar-wrapper content-scroll">
         <!-- side menu logo start -->
@@ -145,10 +141,7 @@
           <a href="#"
             ><img alt="" src="assets/images/logosm.png" width="122" height="27"
           /></a>
-          <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-					<i class="material-icons ttr-fixed-icon">gps_fixed</i>
-					<i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-				</div> -->
+
           <div class="ttr-sidebar-toggle-button">
             <i class="ti-arrow-left"></i>
           </div>
@@ -167,13 +160,13 @@
               </a>
               <ul>
                 <li>
-                  <a href="student-addmission.html" class="ttr-material-button"
-                    ><span class="ttr-label">Student Admission</span></a
+                  <a href="teacher-admission.html" class="ttr-material-button"
+                    ><span class="ttr-label">Teacher Admission</span></a
                   >
                 </li>
                 <li>
-                  <a href="teacher-admission.html" class="ttr-material-button"
-                    ><span class="ttr-label">Teacher Admission</span></a
+                  <a href="student-admission.html" class="ttr-material-button"
+                    ><span class="ttr-label">Student Admission</span></a
                   >
                 </li>
                 <li>
@@ -204,7 +197,6 @@
       </div>
     </div>
     <!-- Left sidebar menu end -->
-
     <!--Main container start -->
     <main class="ttr-wrapper">
       <div class="container-fluid">
@@ -214,7 +206,7 @@
             <li>
               <a href="#"><i class="fa fa-home"></i>Home</a>
             </li>
-            <li>Teacher Admission</li>
+            <li>Student Admission</li>
           </ul>
           
         </div>
@@ -226,17 +218,12 @@
               <input type="text" class="form-control" id="getByIdInput" placeholder="Enter ID for details"/>
               <button class="btn btn-info" id="getByIdBtn" >Get Details</button>
             </div>
-            <!-- <div class="input-group">
-              <input type="text" class="form-control" id="deleteByIdInput" placeholder="Enter ID to delete"/>
-              <button class="btn btn-danger" id="deleteByIdBtn">Delete</button>
-            </div> -->
           </div>
           <div class="crud-results" id="crudResults"></div>
         </div>
       </div>
       <div class="container-list"></div>
     </main>
-    <!-- External JavaScripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -257,40 +244,75 @@
     <script src="assets/vendors/calendar/fullcalendar.js"></script>
     <script src="assets/vendors/switcher/switcher.js"></script>
     <script type="module">
-      
-      // import { endpoints } from "./assets/js/enviroment.js";
-
-      // fetch(`${endpoints.getAllStuAdd}`)
-      //   .then((response) => response.json())
-      //   .then((admissions) => {
-      //     const container = document.querySelector(".container-fluid");
-      //     container.innerHTML = admissions.data
-      //       .map(
-      //         (admission) => `
-      //         <div class="row justify-content-around">
-      //           <div class="col-10">
-      //             <div class="admission-card">
-      //               <div class="text-feild">
-      //                 <h3>Name:</h3>
-      //                 <p>${admission.fullNameArabic}</p>
-      //                 <hr />
-      //                 <h3>Place Of Birth:</h3>
-      //                 <p>${admission.placeOfBirth}</p>
-      //                 <hr />
-      //                 <h3>Date Of Birth:</h3>
-      //                 <p>${admission.dateOfBirth}</p>
-      //               </div>
-      //               <div class="text-center">
-      //                 <a href="#" class="btn btn-primary" onclick="viewDetails(${admission.studentAdmissionId})">View</a>
-      //               </div>
-      //             </div>
-      //           </div>
-      //         </div>
-      //         `
-      //       )
-      //       .join("");
-      //   });
-
+      import { endpoints } from "./assets/js/enviroment.js";
+      getAll();
+    
+        
+        document.getElementById('getAllBtn').addEventListener('click', function() {
+          getAll();
+        })
+        document.getElementById('getByIdBtn').addEventListener('click', function() {
+          const id = document.getElementById("getByIdInput").value;
+          fetch(`${endpoints.getAllStudentAdd}/${id}`)
+        .then((response) => response.json())
+        .then((admission) => {
+          const container = document.querySelector(".container-list");
+          const tempHTml =  `
+              <div class="row justify-content-around">
+                <div class="col-10">
+                  <div class="admission-card">
+                    <div class="text-feild">
+                       <h3>Name:</h3>
+                       <p>${admission.fullNameArabic}</p>
+                       <hr />
+                       <h3>Place Of Birth:</h3>
+                       <p>${admission.placeOfBirth}</p>
+                       <hr />
+                       <h3>Date Of Birth:</h3>
+                       <p>${admission.dateOfBirth}</p>
+                     </div>
+                    <div class="text-center">
+                      <a href="#" class="btn btn-primary" onclick="viewDetails(${admission.id})">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `
+          container.innerHTML = tempHTml
+        });
+      })
+      function getAll(){
+        fetch(`${endpoints.getAllStudentAdd}`)
+        .then((response) => response.json())
+        .then((admissions) => {
+          const container = document.querySelector(".container-list");
+          container.innerHTML = admissions.data
+            .map(
+              (admission) => `
+              <div class="row justify-content-around">
+                <div class="col-10">
+                  <div class="admission-card">
+                   <div class="text-feild">
+                       <h3>Name:</h3>
+                       <p>${admission.fullNameArabic}</p>
+                       <hr />
+                       <h3>Place Of Birth:</h3>
+                       <p>${admission.placeOfBirth}</p>
+                       <hr />
+                       <h3>Date Of Birth:</h3>
+                       <p>${admission.dateOfBirth}</p>
+                     </div>
+                    <div class="text-center">
+                      <a href="#" class="btn btn-primary" onclick="viewDetails(${admission.id})">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `
+            )
+            .join("");
+        });
+      }
       window.viewDetails = function (id) {
         window.location.href = `student-details.html?id=${id}`;
       };
