@@ -1066,7 +1066,7 @@
       const deleteBtn = document.getElementById("deleteBtn");
       deleteBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        fetch(`${endpoints.getAllStuAdd}/${id}`, {
+        fetch(`${endpoints.getAllStudentAdd}/${id}`, {
           method: "DELETE",
         }).then((res) => {
           if (res.ok) {
@@ -1074,7 +1074,7 @@
           } else alert("Delete Failed");
         });
       });
-      fetch(`${endpoints.getAllStuAdd}/${id}`)
+      fetch(`${endpoints.getAllStudentAdd}/${id}`)
         .then((response) => response.json())
         .then((data) => {
           // Populate the form fields with the received data
