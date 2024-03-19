@@ -1,0 +1,24 @@
+.admission-card {
+    border: 1px dotted var(--primary);
+    padding: 20px;
+    box-shadow: -1px 1px 10px 1px rgb(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+  }
+  
+  .admission-card .text-feild {
+
+  }
+  
+  .admission-card .text-feild h3 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 15px;
+  }
+  
+  .admission-card .text-feild p {
+    margin: 0;
+  }
+  
+  .admission-card .text-feild hr {
+    margin: 0;
+  }
